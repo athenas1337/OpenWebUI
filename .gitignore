@@ -311,3 +311,8 @@ cypress/videos
 cypress/screenshots
 .vscode/settings.json
 .cptr
+
+# Environment variables
+.env
+.env.local
+.env.production
