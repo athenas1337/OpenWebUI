@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: open-webui
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: WEBUI_SECRET_KEY
+        generateValue: true
+      - key: OLLAMA_BASE_URL
+        value: ""
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: HUGGINGFACE_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: open-webui-db
+          property: connectionURI
+    disk:
+      name: webui-data
+      mountPath: /app/backend/data
+      sizeGB: 10
+    healthCheckPath: /health
+    plan: starter
+
+databases:
+  - name: open-webui-db
+    plan: starter
+    databaseName: openwebui
+    user: openwebui
